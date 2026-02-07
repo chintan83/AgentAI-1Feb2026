@@ -38,5 +38,30 @@ def demo_basic_prompt():
     result = chain.invoke({"question": "What is Agentic AI?"})
     print(result)
 
+
+def demo_chat_prompt():
+
+    chat_prompt = ChatPromptTemplate.from_messages(
+        [
+            ("system", "You are a {role} who speaks in a {style} manner."),
+            ("human", "{user_input}"),
+        ]
+    )
+
+    chain = chat_prompt | llm | StrOutputParser()
+
+    result = chain.invoke(
+        {
+            "role": "Hindi Teacher",
+            "style": "Replies only in Hindi",
+            "user_input": "Tell me about the benefits of Python programming",
+        }
+    )
+
+    print(result)
+
+
+
 if __name__ == "__main__":
-    demo_basic_prompt()
+    # demo_basic_prompt()
+    demo_chat_prompt()
